@@ -92,10 +92,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      * 4. The lottery should be in the "open" state
      */
     function checkUpkeep(
-        bytes calldata /*checkData*/
+        bytes memory /*checkData*/
     )
         public
-        view
         override
         returns (
             bool upKeepNeeded,
@@ -165,5 +164,26 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     function getRecentWinner() public view returns (address) {
         return s_mostRecentWinner;
+    }
+
+    function getRaffleState() public view returns (RaffleState) {
+        return s_raffleState;
+    }
+
+    //numwords is a constant variable
+    function getNumWords() public pure returns (uint256) {
+        return NUM_WORDS;
+    }
+
+    function getNumberOfPlayers() public view returns (uint256) {
+        return s_players.length;
+    }
+
+    function getLatestTimeStamp() public view returns (uint256) {
+        return s_lastTimeStamp;
+    }
+
+    function getReqeustConfirmations() public pure returns (uint256) {
+        return REQUEST_CONFIRMATIONS;
     }
 }
